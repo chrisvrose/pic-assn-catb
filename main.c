@@ -66,8 +66,9 @@ typedef struct{
 } inventory_piece;
 
 typedef struct{
-	struct datetime ptime;
-	struct inventory_piece *pieces[];
+	datetime ptime;
+	inventory_piece *pieces;
+	int piece_length;
 	float total_profit; 
 } invoice;
 
