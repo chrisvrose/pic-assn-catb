@@ -3,6 +3,34 @@ Design and develop an integrated solution of a caterer billing system to run a s
 The solution provides complete details of the valid business details with user friendly environment along with the report details.
 
 
+Start
+	Menu:
+		1. Set Profits ( default 10% )
+		2. Billing
+		3. View saved invoice
+		3. Generate reports
+		4. View saved report
+
+
+
+Input stuff:
+	Billing invoices
+	Profit Percentage (Setup as default 10%)
+	
+	
+	
+	
+Structure definitions: 
+
+Output stuff:
+
+
+
+
+
+
+
+
 1.1 Sections:
 		- Admin sections to add/modify products
 		- Send invoices to clients
@@ -16,39 +44,39 @@ The solution provides complete details of the valid business details with user f
 		- 2: Unlisted
 		- 1: Availability
 	
-
-
 */
 
 
 #include<stdio.h>
 
+
 #define ITEM_LEN 25
 #define MOTD "Have a nice day!"
 #define MAX_ITEM_LIST 50
 
-struct inventory_piece{
+typedef struct{
+	int date[3];
+	int time[2];
+} datetime;
+
+
+typedef struct{
 	char[25] name;
 	float price;
-	int status-flags;		//  1.2
-};
+} inventory_piece;
 
-struct invoice{
-	
-};
+typedef struct{
+	struct datetime ptime;
+	struct inventory_piece *pieces[];
+	float total_profit; 
+} invoice;
 
 
-int load_inventory(char[] fn){
-	
-	return 1;
-}
-int save_inventory(char[] fn){
-	
+int save_invoice_log(inventory_piece a[],char location[]){
 	return 1;
 }
 
-int save_invoice_log(struct inventory_piece a[]){
-	return 1;
+int load_invoice_log(char location[]){
 }
 
 int billing(){
@@ -56,8 +84,7 @@ int billing(){
 
 
 int main(){
-	
-	scanf();
-	printf();
+	printf("\f" MOTD "\nOptions:");
+	// Stuff
 	return 0;
 }
