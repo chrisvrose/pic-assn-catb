@@ -61,7 +61,7 @@ typedef struct{
 
 
 typedef struct{
-	char[25] name;
+	char name[25];
 	float price;
 } inventory_piece;
 
