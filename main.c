@@ -66,6 +66,7 @@ typedef struct{
 } inventory_piece;
 
 typedef struct{
+	char recep[25];
 	datetime ptime;
 	inventory_piece *pieces;
 	int piece_length;
