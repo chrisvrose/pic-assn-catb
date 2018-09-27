@@ -73,14 +73,18 @@ typedef struct{
 } invoice;
 
 
+
+
 int save_invoice_log(inventory_piece a[],char location[]){
 	return 1;
 }
 
 int load_invoice_log(char location[]){
+	return 1;
 }
 
 int billing(){
+	return 1;
 }
 
 
