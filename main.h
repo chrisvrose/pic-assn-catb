@@ -1,5 +1,5 @@
-int set_profitper(int*);
-
+int set_profitper(float*);
+int make_invoice(float);
 
 typedef struct{
 	int date[3];

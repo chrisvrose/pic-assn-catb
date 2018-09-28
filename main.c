@@ -6,49 +6,30 @@ The solution provides complete details of the valid business details with user f
 Start
 	Menu:
 		1. Set Profits ( default 10% )		- Done
-		2. Billing							- 
-		3. View saved invoice				-
-		4. Generate reports					-
-		5. View saved report				-
+		2. Billing				- 
+		3. View saved invoice			-
+		4. Generate reports			-
+		5. View saved report			-
 
 
 
 Input stuff:
 	Billing invoices
 	Profit Percentage (Setup as default 10%)
-	
-	
-	
-	
+		
 Structure definitions: 
-
 Output stuff:
 
 
-
-
-
-
-
-
-1.1 Sections:
-		- Profit Percentages (set per invoice, default 10%)
-		- Input Bills
-		- Log invoices
-		- View saved invoices
-		- Generate financial reports ( Choices: 1y,1m,1d,12h,1h )
-		- View past financial reports
-
-1.2 - Status flags for every menu item in the inventory:
-		321 in decimal
-		- 3: Restriction (Age)
-		- 2: Unlisted
-		- 1: Availability
-	
 */
 
 
 #include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+
 #include "main.h"
 
 #ifdef _WIN32
@@ -65,19 +46,21 @@ Output stuff:
 
 
 
-int set_profitper(int* p){
-	char c;
+int set_profitper(float* p){
+	int c;
 
-	printf("\nCurrent profit percentage: %d\n",*p);
-	printf("Do you want to change it?(Y/N)\n:");
-	scanf("%c",&c);
-	
-	if(tolower(c)=='y'){
-		printf("Set profit percentage (Without %% symbol)\n:",p);
+	printf("\nCurrent profit percentage: %0.2f\n",(*p)*100 );
+	printf("Do you want to change it?(Y-1/N-0)\n:");
+	//fflush(stdin);fflush(stdout);
+	scanf("%d",&c);
+	if(c){
+		printf("Set profit percentage (Without %% symbol)\n:",*p);
 		scanf("%f",p);
 		(*p)/=100.0;
-		if(abs(*p)<=1.0)
+		if(abs(*p)<=1.0){
+			printf("Set to: %.2f %%",(*p)*100);
 			return 1;
+		}
 		else{
 			printf("Range -> 0 - 100. Retry.\n");
 			return set_profitper(p);
@@ -88,7 +71,8 @@ int set_profitper(int* p){
 }
 
 
-int make_invoice(){
+int make_invoice(float profit_percentage){
+
 	return 1;
 }
 
@@ -118,17 +102,20 @@ void u_sleep(){
 
 
 int main(){
-	int choice,p=.1,flag=1;
+	int choice,flag=1;
+	float p = 0.1;
 	while(flag){
-		printf("\n\n MOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. View saved report\n5. Exit\n:");
+		printf("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n6. Exit\n:");
 		scanf("%d",&choice);
 		switch(choice){
 			case 1:
 				// Profit percentages
-				set_profitper(int& p);
+				set_profitper(&p);
 			break;
 			case 2:
 				// Creating invoices
+				printf("\nStart Billing");
+				make_invoice(p);
 			break;
 			case 3:
 				// View saved invoices
