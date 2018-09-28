@@ -5,11 +5,11 @@ The solution provides complete details of the valid business details with user f
 
 Start
 	Menu:
-		1. Set Profits ( default 10% )
-		2. Billing
-		3. View saved invoice
-		3. Generate reports
-		4. View saved report
+		1. Set Profits ( default 10% )		- Done
+		2. Billing							- 
+		3. View saved invoice				-
+		4. Generate reports					-
+		5. View saved report				-
 
 
 
@@ -49,6 +49,7 @@ Output stuff:
 
 
 #include<stdio.h>
+#include "main.h"
 
 #ifdef _WIN32
 #include<Windows.h>
@@ -60,29 +61,36 @@ Output stuff:
 #define MOTD "Have a nice day!"
 #define MAX_ITEM_LIST 50
 
-typedef struct{
-	int date[3];
-	int time[2];
-} datetime;
 
 
-typedef struct{
-	char name[25];
-	float price;
-} inventory_piece;
+int set_profitper(int& p){
+	char c;
 
-typedef struct{
-	char recep[25];
-	datetime ptime;
-	inventory_piece *pieces;
-	int piece_length;
-	float profit_percentage;
-} invoice;
+	printf("\nCurrent profit percentage: %d\n",*p);
+	printf("Do you want to change it?(Y/N)\n:");
+	scanf("%c",&c);
+	
+	if(tolower(c)=='y'){
+		printf("Set profit percentage (Without %% symbol)\n:",p);
+		scanf("%f",p);
+		(*p)/=100.0;
+		if(abs(*p)<=1.0)
+			return 1;
+		else{
+			printf("Range -> 0 - 100. Retry.\n");
+			return set_profitper(p);
+		}
+	}else{
+		return 0;
+	}
+}
 
 
 int make_invoice(){
 	return 1;
 }
+
+
 
 
 
@@ -108,28 +116,31 @@ void u_sleep(){
 
 
 int main(){
-	int choice,p,flag=1;
+	int choice,p=.1,flag=1;
 	while(flag){
-		printf("\n\n" MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. View saved report\n5. Exit\n:");
+		printf("\n\n MOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. View saved report\n5. Exit\n:");
 		scanf("%d",&choice);
 		switch(choice){
 			case 1:
-				
+				// Profit percentages
+				set_profitper(int& p);
 			break;
 			case 2:
-				
+				// Creating invoices
 			break;
 			case 3:
-				
+				// View saved invoices
 			break;
 			case 4:
-				
+				// Generate reports
 			break;
 			case 5:
-				flag = 0;
-				break;
+				// VIew saved reports
 			break;
 			case 6:
+				//send request for exit
+				flag = 0;
+			break;
 			default:
 				printf("Wrong Input - %d",choice);
 				fflush(stdout);		//Flush output to prevent race
