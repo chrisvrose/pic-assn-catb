@@ -63,7 +63,9 @@ Output stuff:
 
 
 
-int set_profitper(int& p){
+
+
+int set_profitper(int* p){
 	char c;
 
 	printf("\nCurrent profit percentage: %d\n",*p);
