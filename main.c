@@ -1,4 +1,4 @@
-/* 
+/*
 Design and develop an integrated solution of a caterer billing system to run a small scale business in a day to day event transaction activities.
 The solution provides complete details of the valid business details with user friendly environment along with the report details.
 
@@ -49,6 +49,11 @@ Output stuff:
 
 #include<stdio.h>
 
+#ifdef _WIN32
+#include<Windows.h>
+#else
+#include<unistd.h>
+#endif
 
 #define ITEM_LEN 25
 #define MOTD "Have a nice day!"
@@ -70,9 +75,13 @@ typedef struct{
 	datetime ptime;
 	inventory_piece *pieces;
 	int piece_length;
-	float total_profit; 
+	float profit_percentage;
 } invoice;
 
+
+int make_invoice(){
+	return 1;
+}
 
 
 
@@ -88,9 +97,44 @@ int billing(){
 	return 1;
 }
 
+void u_sleep(){
+	#ifdef _WIN32
+		Sleep(1);
+	#else
+		sleep(1);
+	#endif
+}
+
 
 int main(){
-	printf("\f" MOTD "\nOptions:");
+	int choice,p,flag=1;
+	while(flag){
+		printf("\n\n" MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. View saved report\n5. Exit\n:");
+		scanf("%d",&choice);
+		switch(choice){
+			case 1:
+				
+			break;
+			case 2:
+				
+			break;
+			case 3:
+				
+			break;
+			case 4:
+				
+			break;
+			case 5:
+				flag = 0;
+				break;
+			break;
+			case 6:
+			default:
+				printf("Wrong Input - %d",choice);
+				fflush(stdout);		//Flush output to prevent race
+				u_sleep(1);
+		}
+	}
 	// Stuff
 	return 0;
 }
