@@ -32,11 +32,12 @@ Output stuff:
 
 
 1.1 Sections:
-		- Admin sections to add/modify products
-		- Send invoices to clients
+		- Profit Percentages (set per invoice, default 10%)
+		- Input Bills
 		- Log invoices
-		- Generate financial reports
-		-
+		- View saved invoices
+		- Generate financial reports ( Choices: 1y,1m,1d,12h,1h )
+		- View past financial reports
 
 1.2 - Status flags for every menu item in the inventory:
 		321 in decimal
