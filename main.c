@@ -133,8 +133,9 @@ int input_item_number(){
 	
 	printw("\n");
 	for(int i=0;i<menu.num_menu;i++)
-		printf("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
+		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 	
+	refresh();
 	scanw("%d",&input);
 	//cbreak();
 	return input;
