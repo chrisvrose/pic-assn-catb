@@ -79,10 +79,6 @@ void write_cat_det(){
 
 // Menulist I/O
 
-int input_item_number(){
-	return 0;
-}
-
 void write_menulist(){
 	FILE *fp = fopen("menu.details","wb+");
 	nocbreak();
@@ -130,13 +126,28 @@ void read_menulist(){
 }
 
 // Billing invoices
+
+int input_item_number(){
+	int input=-1;
+	//print menu_list
+	
+	printw("\n");
+	for(int i=0;i<menu.num_menu;i++)
+		printf("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
+	
+	scanw("%d",&input);
+	//cbreak();
+	return input;
+}
+
+
 void write_invoice(){
 	char fn[20];int i,buffer;
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);
 	// last_invoice - Structure to store last generated invoice
-	nocbreak();		// prepare for input
+	//nocbreak();		// prepare for input
 	
 	//Receipt recipient
 	printw("Invoice Recipient\n:");
@@ -157,7 +168,7 @@ void write_invoice(){
 		
 		printw("\nEnter item quantity\n:");
 		refresh();
-		scanw("%d",last_invoice.item_numbers[i][0]);
+		scanw("%d", &(last_invoice.item_numbers[i][0]) );
 		}
 		else flag=0;
 	}
@@ -165,7 +176,7 @@ void write_invoice(){
 	printw("\n%d",i);
 	
 	refresh();
-	nocbreak();
+	//nocbreak();
 	
 	//FILE *fp = fopen(fn,"wb+");
 	//printw("\n%s\n",fn);
@@ -182,7 +193,7 @@ void read_invoice(){
 int main(){
 	int choice,flag=1;
 	initscr();		//init ncurses
-	cbreak();
+	//cbreak();
 	while(flag){
 		clear();
 		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
@@ -190,7 +201,6 @@ int main(){
 		choice = getch();
 		switch(choice){
 			case '1':
-				// Profit percentages
 				//set_profitper(&p);
 			break;
 			case '2':

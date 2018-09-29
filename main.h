@@ -6,6 +6,7 @@
 void print_cat_det();
 void read_cat_det();
 void write_cat_det();
+
 void write_menulist();
 void print_menulist();
 void read_menulist();
@@ -19,14 +20,10 @@ typedef struct{
 }cat_details;
 
 
-
-
-typedef struct{
+/*typedef struct{
 	int date[3];
 	int time[2];
-} datetime;
-
-
+} datetime;*/
 
 
 typedef struct{
@@ -43,7 +40,7 @@ typedef struct{
 
 typedef struct{
 	char recep[32];
-	datetime ptime;
+	//datetime ptime;
 	int item_numbers[128][2];
 	int pieces_len;
 } invoice;
