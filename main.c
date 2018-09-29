@@ -299,6 +299,7 @@ int main(){
 			case '0':
 				// Exit
 				flag = 0;
+			break;
 			default:
 				printw("\nWrong Input - %d",choice);
 				
