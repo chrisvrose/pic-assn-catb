@@ -7,7 +7,7 @@
 int set_profitper(float*);
 
 // Objective 2
-int make_invoice(float);
+int make_invoice();
 
 //Objective 3
 

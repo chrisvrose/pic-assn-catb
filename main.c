@@ -29,6 +29,7 @@ Output stuff:
 #include<string.h>
 #include<stdlib.h>
 #include<math.h>
+#include<ncurses.h>
 
 #include "main.h"
 
@@ -46,7 +47,7 @@ Output stuff:
 
 
 
-int set_profitper(float* p){
+/*int set_profitper(float* p){
 	int c;
 
 	printf("\nCurrent profit percentage: %0.2f\n",(*p)*100 );
@@ -68,11 +69,11 @@ int set_profitper(float* p){
 	}else{
 		return 0;
 	}
-}
+}*/
 
 
-int make_invoice(float profit_percentage){
-	printf("%d %d",sizeof(invoice),sizeof(inventory_piece));
+int make_invoice(){
+	printw("%d %d",sizeof(invoice),sizeof(inventory_piece));
 	return 1;
 }
 
@@ -95,44 +96,52 @@ int billing(){
 
 int main(){
 	int choice,flag=1;
+	initscr();		//init ncurses
+	cbreak();
 	while(flag){
-		printf("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
-		scanf("%d",&choice);
+		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
+		refresh();
+		choice = getch();
 		switch(choice){
-			case 1:
+			case '1':
 				// Profit percentages
-				set_profitper(&p);
+				//set_profitper(&p);
 			break;
-			case 2:
+			case '2':
 				// Creating invoices
-				printf("\nStart Billing");
-				make_invoice(p);
+				printw("\nStart Billing");
+				make_invoice();
 			break;
-			case 3:
+			case '3':
 				// View saved invoices
 			break;
-			case 4:
+			case '4':
 				// Generate reports
 			break;
-			case 5:
+			case '5':
 				// View saved reports
 			break;
-			case 6:
+			case '6':
 				// Load inventory
 			break;
-			case 7:
+			case '7':
 				// Make and save inventory
 			break;
-			case 8:
+			case '8':
 				//send request for exit
 				flag = 0;
 			break;
 			default:
-				printf("Wrong Input - %d",choice);
-				fflush(stdout);		//Flush output to prevent race
-				u_sleep(1);
+				printw("\nWrong Input - %d",choice);
+				
 		}
+		refresh();
 	}
+	clear();
+	printw("\nExiting. Press any key");
+	refresh();
+	getch();
+	endwin();
 	// Stuff
 	return 0;
 }
