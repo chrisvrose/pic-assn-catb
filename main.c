@@ -255,7 +255,7 @@ int main(){
 	//cbreak();
 	while(flag){
 		clear();
-		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n9. Exit\n:");
+		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n6. Read invoice\n0. Exit\n:");
 		refresh();
 		choice = getch();
 		switch(choice){
