@@ -20,6 +20,9 @@ Input stuff:
 Structure definitions: 
 Output stuff:
 
+Functions:
+	- Set up  caterer details
+	- 
 
 */
 
