@@ -157,14 +157,7 @@ void write_invoice(){
 	scanw("%s",last_invoice.recep);
 	
 	
-	for(i=0,flag=1;i<128&&flag;i++){
-		/*printw();
-		refresh();
-		scanw();
-		
-		printw();
-		refresh();
-		scanw();*/
+	for(i=0;i<128&&(buffer+1);i++){
 		if((buffer = input_item_number()) != -1){
 			last_invoice.item_numbers[i][0] = buffer;
 		
@@ -172,7 +165,6 @@ void write_invoice(){
 			refresh();
 			scanw("%d", &(last_invoice.item_numbers[i][0]) );
 		}
-		else flag=0;
 	}
 	
 	printw("\n%d",i);
