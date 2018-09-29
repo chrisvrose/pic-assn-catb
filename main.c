@@ -222,18 +222,18 @@ void read_invoice(){
 	refresh();
 	scanw("%d",&choice);
 	
-	FILE *fp = fopen(invoice_name_list[256][c-1],"rb");
+	FILE *fp = fopen(invoice_list.invoice_name_list[256][c-1],"rb");
 	fread(&last_invoice,sizeof(invoice),1,fp);
 	fclose(fp);
 }
 
 void print_invoice(){
 	//print_invoice();
-	printw("\n%s\n",;last_invoice.recep);int total_price=0;
+	printw("\n%s\n",last_invoice.recep);int total_price=0;
 	printw("Items:\n");
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
-		total_price+=menu.pieces[ last_invoice[i][0] ].sprice;
+		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
 		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice.item_numbers[i][0] ].name,menu.pieces[ last_invoice.item_numbers[i][0] ].sprice);
 		refresh();
 	}
