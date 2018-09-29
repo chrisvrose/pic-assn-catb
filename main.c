@@ -133,7 +133,7 @@ int input_item_number(){
 	
 	printw("\n");
 	for(int i=0;i<menu.num_menu;i++)
-		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
+		printw("\r\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 	
 	refresh();
 	scanw("%d",&input);
@@ -156,7 +156,7 @@ void write_invoice(){
 	scanw("%s",last_invoice.recep);
 	
 	
-	for(int i=0,flag=1;i<128&&flag;i++){
+	for(i=0,flag=1;i<128&&flag;i++){
 		/*printw();
 		refresh();
 		scanw();
