@@ -21,6 +21,7 @@ Start
 
 #include<stdio.h>
 #include<ctype.h>
+#include<string.h>
 #include<stdlib.h>
 #include<math.h>
 #include<ncurses.h>
@@ -40,8 +41,18 @@ Start
 cat_details company_details;
 menu_list menu;
 invoice last_invoice;
-char invoice_name_list[20][256];
+sinvoice_list invoice_list;
 
+
+int exists(const char *fname){
+	FILE *file;
+	if ((file = fopen(fname, "r")))
+	{
+		fclose(file);
+		return 1;
+    }
+    return 0;
+}
 
 // Caterer details I/O
 
@@ -80,7 +91,7 @@ void write_cat_det(){
 // Menulist I/O
 
 void write_menulist(){
-	FILE *fp = fopen("menu.details","wb+");
+	//FILE *fp = fopen("menu.details","wb+");
 	nocbreak();
 	
 	retry_menu_list:
@@ -103,7 +114,7 @@ void write_menulist(){
 		scanw("%f %f",&(menu.pieces[i].sprice),&(menu.pieces[i].pcost) );
 		
 	}
-	
+	FILE *fp = fopen("menu.details","wb+");
 	fwrite(&menu,sizeof(menu_list),1,fp);
 	fclose(fp);
 	
@@ -173,15 +184,41 @@ void write_invoice(){
 	
 	refresh();
 	
-	//FILE *fp = fopen(fn,"wb+");
+	FILE *fp = fopen(fn,"wb+");
+	fwrite(&last_invoice,sizeof(invoice),1,fp);
+	fclose(fp);
+	
+	
+	if(!exists("bill_list.details")) invoice_list.num_invoice = 0; 
+	else{
+		read_invoice_list();
+	}
+	
+	//write down this new stuff
+	strcpy(invoice_list[invoice_list.num_invoice],fn);
+	invoice_list.num_invoice+=1;
+	
+	FILE *fp = fopen("bill_list.details","wb+");
+	fwrite(&invoice_list,sizeof(sinvoice_list),1,fp);
+	fclose(fp);
 	//printw("\n%s\n",fn);
-}                                                   
+}
+
+
 void print_invoice(){
 }
 
 void read_invoice(){
 	print_invoice();
 }
+
+void read_invoice_list(){
+	FILE *fp = fopen("bill_list.details","rb+");
+	fread(&invoice_list,sizeof(sinvoice_list),1,fp);
+	fclose(fp);
+}
+
+
 
 
 
@@ -191,7 +228,7 @@ int main(){
 	//cbreak();
 	while(flag){
 		clear();
-		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n8. Exit\n:");
+		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n9. Exit\n:");
 		refresh();
 		choice = getch();
 		switch(choice){
@@ -217,15 +254,18 @@ int main(){
 				write_invoice();
 			break;
 			case '6':
-				// Load inventory
+				// Read invoice
 				//read_invoice();
 			break;
 			case '7':
-				// Make and save inventory
+				// Make report
 				
 			break;
 			case '8':
-				//send request for exit
+				// View report
+			break;
+			case '9':
+				// Exit
 				flag = 0;
 			break;
 			default:

@@ -2,6 +2,7 @@
 #define MOTD "Have a nice day!"
 #define MAX_ITEM_LIST 150
 
+int exists(const char *fname);
 
 void print_cat_det();
 void read_cat_det();
@@ -11,6 +12,11 @@ void write_menulist();
 void print_menulist();
 void read_menulist();
 
+int input_item_number();
+
+
+
+void read_invoice_list()
 
 typedef struct{
 	char name[64];
@@ -38,9 +44,16 @@ typedef struct{
 } menu_list;
 
 
+
 typedef struct{
 	char recep[32];
 	//datetime ptime;
 	int item_numbers[128][2];
 	int pieces_len;
 } invoice;
+
+
+typedef struct{
+	int num_invoice;
+	char invoice_name_list[256][20];
+} sinvoice_list;
