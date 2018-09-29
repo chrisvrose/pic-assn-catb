@@ -159,8 +159,8 @@ void write_invoice(){
 	scanw("%s",last_invoice.recep);
 	
 	
-	for(i=0;i<128&&(buffer+1);i++){
-		if((buffer = input_item_number()) != -1){
+	for(i=0;i<128&&(buffer);i++){
+		if(buffer = input_item_number()){		// Can be anything but zero
 			last_invoice.item_numbers[i][0] = buffer;
 		
 			printw("\nEnter item quantity\n:");
