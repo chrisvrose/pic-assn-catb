@@ -5,6 +5,11 @@
 
 void print_cat_det();
 void read_cat_det();
+void write_cat_det();
+void write_menulist();
+void print_menulist();
+void read_menulist();
+
 
 typedef struct{
 	char name[64];
