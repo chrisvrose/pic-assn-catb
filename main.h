@@ -1,3 +1,7 @@
+#define ITEM_LEN 25
+#define MOTD "Have a nice day!"
+#define MAX_ITEM_LIST 150
+
 
 // Objective 1
 int set_profitper(float*);
@@ -10,6 +14,7 @@ int make_invoice(float);
 
 //Objective 4
 
+
 typedef struct{
 	int date[3];
 	int time[2];
@@ -17,14 +22,15 @@ typedef struct{
 
 
 typedef struct{
+	int item_number;
 	char name[25];
-	float price;
+	float sprice;
+	float profit;
 } inventory_piece;
 
 typedef struct{
 	char recep[25];
 	datetime ptime;
-	inventory_piece *pieces;
-	int piece_length;
-	float profit_percentage;
+	int item_numbers[100][2];
+	int pieces_len;
 } invoice;

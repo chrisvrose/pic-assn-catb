@@ -10,8 +10,8 @@ Start
 		3. View saved invoice			-
 		4. Generate reports			-
 		5. View saved report			-
-
-
+		6. Load inventory
+		7. Make and save inventory
 
 Input stuff:
 	Billing invoices
@@ -34,13 +34,13 @@ Output stuff:
 
 #ifdef _WIN32
 #include<Windows.h>
+#define u_sleep(x) Sleep(x)
 #else
 #include<unistd.h>
+#define u_sleep(x) sleep(x)
 #endif
 
-#define ITEM_LEN 25
-#define MOTD "Have a nice day!"
-#define MAX_ITEM_LIST 50
+
 
 
 
@@ -92,20 +92,11 @@ int billing(){
 	return 1;
 }
 
-void u_sleep(){
-	#ifdef _WIN32
-		Sleep(1);
-	#else
-		sleep(1);
-	#endif
-}
-
 
 int main(){
 	int choice,flag=1;
-	float p = 0.1;
 	while(flag){
-		printf("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n6. Exit\n:");
+		printf("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
 		scanf("%d",&choice);
 		switch(choice){
 			case 1:
@@ -127,6 +118,12 @@ int main(){
 				// View saved reports
 			break;
 			case 6:
+				// Load inventory
+			break;
+			case 7:
+				// Make and save inventory
+			break;
+			case 8:
 				//send request for exit
 				flag = 0;
 			break;
