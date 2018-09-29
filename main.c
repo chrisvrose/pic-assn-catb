@@ -157,7 +157,7 @@ int main(){
 			case '2':
 				// Creating invoices
 				printw("\nStart Billing");
-				make_invoice();
+				//make_invoice();
 			break;
 			case '3':
 				write_invoice();
