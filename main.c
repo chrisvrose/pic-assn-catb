@@ -198,7 +198,8 @@ void write_invoice(){
 		read_invoice_list();
 	
 	//write down this new stuff
-	strcpy(invoice_list.invoice_name_list[invoice_list.num_invoice],fn);
+	//strcpy(invoice_list.invoice_name_list[invoice_list.num_invoice],fn);
+	for(int i=0;i<32;i++) invoice_list.invoice_name_list[invoice_list.num_invoice][i] = fn[i];
 	invoice_list.num_invoice+=1;
 	
 	fp = fopen("bill_list.details","wb+");
