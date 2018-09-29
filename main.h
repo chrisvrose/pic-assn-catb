@@ -3,17 +3,8 @@
 #define MAX_ITEM_LIST 150
 
 
-// Objective 1
-int set_profitper(float*);
-
-// Objective 2
-int make_invoice();
-
-//Objective 3
-
-
-//Objective 4
-
+void print_cat_det();
+void read_cat_det();
 
 typedef struct{
 	char name[64];

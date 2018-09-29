@@ -78,6 +78,11 @@ void write_cat_det(){
 }
 
 // Menulist I/O
+
+int input_item_number(){
+	return 0;
+}
+
 void write_menulist(){
 	FILE *fp = fopen("menu.details","wb+");
 	nocbreak();
@@ -126,11 +131,44 @@ void read_menulist(){
 
 // Billing invoices
 void write_invoice(){
-	char fn[20];
+	char fn[20];int i,buffer;
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);
-	printw("%s",fn);
+	// last_invoice - Structure to store last generated invoice
+	nocbreak();		// prepare for input
+	
+	//Receipt recipient
+	printw("Invoice Recipient\n:");
+	refresh();
+	scanw("%s",last_invoice.recep);
+	
+	
+	for(int i=0,flag=1;i<128&&flag;i++){
+		/*printw();
+		refresh();
+		scanw();
+		
+		printw();
+		refresh();
+		scanw();*/
+		if((buffer = input_item_number()) != -1){
+		last_invoice.item_numbers[i][0] = buffer;
+		
+		printw("\nEnter item quantity\n:");
+		refresh();
+		scanw("%d",item_numbers[i][0]);
+		}
+		else flag=0;
+	}
+	
+	printw("\n%d",i);
+	
+	refresh();
+	nocbreak();
+	
+	//FILE *fp = fopen(fn,"wb+");
+	//printw("\n%s\n",fn);
 }                                                   
 void print_invoice(){
 }
