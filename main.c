@@ -72,7 +72,7 @@ int set_profitper(float* p){
 
 
 int make_invoice(float profit_percentage){
-
+	printf("%d %d",sizeof(invoice),sizeof(inventory_piece));
 	return 1;
 }
 
@@ -124,7 +124,7 @@ int main(){
 				// Generate reports
 			break;
 			case 5:
-				// VIew saved reports
+				// View saved reports
 			break;
 			case 6:
 				//send request for exit

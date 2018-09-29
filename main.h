@@ -1,5 +1,14 @@
+
+// Objective 1
 int set_profitper(float*);
+
+// Objective 2
 int make_invoice(float);
+
+//Objective 3
+
+
+//Objective 4
 
 typedef struct{
 	int date[3];
