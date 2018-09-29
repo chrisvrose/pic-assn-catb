@@ -16,6 +16,16 @@ int make_invoice();
 
 
 typedef struct{
+	char[50] name;
+	char[10] rest_code;		//Business id?
+	float taxp;
+	
+}cat_details;
+
+
+
+
+typedef struct{
 	int date[3];
 	int time[2];
 } datetime;

@@ -16,13 +16,14 @@ Start
 Input stuff:
 	Billing invoices
 	Profit Percentage (Setup as default 10%)
+	
 		
 Structure definitions: 
 Output stuff:
 
 Functions:
-	- Set up  caterer details
-	- 
+	- Read caterer details
+	- Read inventory
 
 */
 
@@ -45,7 +46,28 @@ Functions:
 #endif
 
 
+cat_details company_details;
 
+cat_details* read_cat_det(){
+	
+	FILE *fp = fopen("company.details","rb");
+	
+	
+}
+
+int write_cat_det(){
+	FILE *fp = fopen("company.details","wb");
+	clear();
+	nocbreak();
+	printw("Enter company name\n:");
+	refresh();
+	scanw("%s",company_details.name);
+	printw("Enter Tax%%\n:");
+	refresh();
+	scanw("%s",company_details.rest_code);
+	cbreak();
+	return 1;
+}
 
 
 
@@ -129,6 +151,7 @@ int main(){
 			break;
 			case '7':
 				// Make and save inventory
+				write_cat_det();
 			break;
 			case '8':
 				//send request for exit
