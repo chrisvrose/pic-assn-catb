@@ -40,7 +40,7 @@ Start
 cat_details company_details;
 menu_list menu;
 invoice last_invoice;
-char invoice_name_list[16][256];
+char invoice_name_list[20][256];
 
 
 // Caterer details I/O
@@ -126,11 +126,12 @@ void read_menulist(){
 
 // Billing invoices
 void write_invoice(){
+	char fn[20];
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
-	printw("%d",ct->tm_year);
-}
-
+	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);
+	printw("%s",fn);
+}                                                   
 void print_invoice(){
 }
 
