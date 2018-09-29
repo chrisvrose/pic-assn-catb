@@ -230,7 +230,7 @@ void read_invoice(){
 void print_invoice(){
 	//print_invoice();
 	printw("\n%s\n",;last_invoice.recep);int total_price=0;
-	printw("Items:\n"):
+	printw("Items:\n");
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
 		total_price+=menu.pieces[ last_invoice[i][0] ].sprice;
