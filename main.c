@@ -223,7 +223,7 @@ void read_invoice(){
 	
 	printw("Choose invoice to print:\n");
 	for(int i=0;i<invoice_list.num_invoice;i++){
-		printw("\n%d. %s",i+1,invoice_list.invoice_name_list);
+		printw("\n%d. %s",i+1,invoice_list.invoice_name_list[i]);
 		refresh();
 	}
 	printw("\n:");
