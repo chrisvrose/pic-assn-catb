@@ -291,7 +291,7 @@ int main(){
 			case '6':
 				// Load invoice
 				read_invoice();
-				
+				print_invoice();
 			break;
 			case '7':
 				// Print invoice
@@ -299,10 +299,10 @@ int main(){
 			break;
 			case '8':
 				// Make report
+				report();
 			break;
 			case '9':
-				// View report
-				flag = 0;
+				//flag = 0;
 			break;
 			case '0':
 				// Exit
