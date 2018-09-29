@@ -186,6 +186,8 @@ void write_invoice(){
 	}
 	
 	printw("\nNumber of items ordered: %d",i-1);
+	last_invoice.pieces_len = i-1;
+	
 	
 	FILE *fp = fopen(fn,"wb+");
 	fwrite(&last_invoice,sizeof(invoice),1,fp);
