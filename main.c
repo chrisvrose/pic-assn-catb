@@ -136,7 +136,7 @@ int input_item_number(){
 		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 		refresh();
 	}
-	printf("\n:");
+	printw("\n:");
 	refresh();
 	
 	scanw("%d",&input);
@@ -172,7 +172,6 @@ void write_invoice(){
 	printw("\nNumber of items ordered: %d",i-1);
 	
 	refresh();
-	//nocbreak();
 	
 	//FILE *fp = fopen(fn,"wb+");
 	//printw("\n%s\n",fn);
@@ -192,37 +191,38 @@ int main(){
 	//cbreak();
 	while(flag){
 		clear();
-		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
+		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n8. Exit\n:");
 		refresh();
 		choice = getch();
 		switch(choice){
 			case '1':
-				//set_profitper(&p);
+				// Write caterer details
+				write_cat_det();
 			break;
 			case '2':
-				// Creating invoices
-				printw("\nStart Billing");
+				// Get caterer details
+				read_cat_det();
 				//make_invoice();
 			break;
 			case '3':
-				write_invoice();
-				// View saved invoices
+				// Write menu list
+				write_menulist();
 			break;
 			case '4':
-				// Generate reports
+				// Read the menu list and print
 				read_menulist();
 			break;
 			case '5':
-				// View saved reports
-				write_menulist();
+				// Make invoice
+				write_invoice();
 			break;
 			case '6':
 				// Load inventory
-				read_cat_det();
+				//read_invoice();
 			break;
 			case '7':
 				// Make and save inventory
-				write_cat_det();
+				
 			break;
 			case '8':
 				//send request for exit
