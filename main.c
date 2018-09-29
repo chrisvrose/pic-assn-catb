@@ -66,7 +66,7 @@ void read_cat_det(){
 	FILE *fp = fopen("company.details","rb");
 	fread(&company_details,sizeof(cat_details),1,fp);
 	fclose(fp);
-	print_cat_det();
+	//print_cat_det();
 	
 }
 
@@ -133,7 +133,7 @@ void read_menulist(){
 	fread(&menu,sizeof(menu_list),1,fp);
 	fclose(fp);
 	
-	print_menulist();
+	//print_menulist();
 }
 
 // Billing invoices
@@ -155,6 +155,11 @@ int input_item_number(){
 	return input;
 }
 
+void read_invoice_list(){
+	FILE *fp = fopen("bill_list.details","rb+");
+	fread(&invoice_list,sizeof(sinvoice_list),1,fp);
+	fclose(fp);
+}
 
 void write_invoice(){
 	char fn[20];int i,buffer,flag;
@@ -165,11 +170,11 @@ void write_invoice(){
 	//nocbreak();		// prepare for input
 	
 	//Receipt recipient
-	printw("Invoice Recipient\n:");
+	printw("\nInvoice Recipient\n:");
 	refresh();
 	scanw("%s",last_invoice.recep);
 	
-	
+	printw("Enter item numbers(0 to exit):\n");
 	for(i=0;i<128&&(buffer);i++){
 		if(buffer = input_item_number()){		// Can be anything but zero
 			last_invoice.item_numbers[i][0] = buffer;
@@ -182,17 +187,15 @@ void write_invoice(){
 	
 	printw("\nNumber of items ordered: %d",i-1);
 	
-	refresh();
-	
 	FILE *fp = fopen(fn,"wb+");
 	fwrite(&last_invoice,sizeof(invoice),1,fp);
 	fclose(fp);
 	
 	
-	if(!exists("bill_list.details")) invoice_list.num_invoice = 0; 
-	else{
+	if(!exists("bill_list.details"))
+		invoice_list.num_invoice = 0; 
+	else
 		read_invoice_list();
-	}
 	
 	//write down this new stuff
 	strcpy(invoice_list.invoice_name_list[invoice_list.num_invoice],fn);
@@ -202,23 +205,46 @@ void write_invoice(){
 	fwrite(&invoice_list,sizeof(sinvoice_list),1,fp);
 	fclose(fp);
 	//printw("\n%s\n",fn);
+	
+	printw("\nBill saved and updated");
+	refresh();
 }
 
-
-void print_invoice(){
-}
 
 void read_invoice(){
-	//print_invoice();
-}
-
-void read_invoice_list(){
-	FILE *fp = fopen("bill_list.details","rb+");
-	fread(&invoice_list,sizeof(sinvoice_list),1,fp);
+	clear();int choice;
+	printw("Choose invoice to print:\n");
+	for(int i=0;i<invoice_list.num_invoice;i++){
+		printw("\n%d. %s",i+1,invoice_list.invoice_name_list);
+		refresh();
+	}
+	printw("\n:");
+	refresh();
+	scanw("%d",&choice);
+	
+	FILE *fp = fopen(invoice_name_list[256][c-1],"rb");
+	fread(&last_invoice,sizeof(invoice),1,fp);
 	fclose(fp);
 }
 
+void print_invoice(){
+	//print_invoice();
+	printw("\n%s\n",;last_invoice.recep);int total_price=0;
+	printw("Items:\n"):
+	refresh();
+	for(int i=0;i<last_invoice.pieces_len;i++){
+		total_price+=menu.pieces[ last_invoice[i][0] ].sprice;
+		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice[i][0] ].name,menu.pieces[ last_invoice[i][0] ].sprice);
+		refresh();
+	}
+	printw("\nBilled Amount:%d",total_price);
+}
 
+
+
+
+void report(){
+}
 
 
 
@@ -239,35 +265,40 @@ int main(){
 			case '2':
 				// Get caterer details
 				read_cat_det();
-				//make_invoice();
+				print_cat_det();
 			break;
 			case '3':
 				// Write menu list
 				write_menulist();
 			break;
 			case '4':
-				// Read the menu list and print
+				// Load the menu list and print
 				read_menulist();
+				print_menulist();
 			break;
 			case '5':
 				// Make invoice
 				write_invoice();
 			break;
 			case '6':
-				// Read invoice
-				//read_invoice();
-			break;
-			case '7':
-				// Make report
+				// Load invoice
+				read_invoice();
 				
 			break;
+			case '7':
+				// Print invoice
+				print_invoice();
+			break;
 			case '8':
-				// View report
+				// Make report
 			break;
 			case '9':
-				// Exit
+				// View report
 				flag = 0;
 			break;
+			case '0':
+				// Exit
+				flag = 0;
 			default:
 				printw("\nWrong Input - %d",choice);
 				
