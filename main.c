@@ -214,6 +214,13 @@ void write_invoice(){
 
 void read_invoice(){
 	clear();int choice;
+	
+	if(!exists("bill_list.details"))
+		invoice_list.num_invoice = 0; 
+	else
+		read_invoice_list();
+	
+	
 	printw("Choose invoice to print:\n");
 	for(int i=0;i<invoice_list.num_invoice;i++){
 		printw("\n%d. %s",i+1,invoice_list.invoice_name_list);
