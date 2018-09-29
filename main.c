@@ -136,7 +136,9 @@ int input_item_number(){
 		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 		refresh();
 	}
+	printf("\n:");
 	refresh();
+	
 	scanw("%d",&input);
 	//cbreak();
 	return input;
@@ -167,7 +169,7 @@ void write_invoice(){
 		}
 	}
 	
-	printw("\n%d",i);
+	printw("\nNumber of items ordered: %d",i-1);
 	
 	refresh();
 	//nocbreak();
