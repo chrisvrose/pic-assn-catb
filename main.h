@@ -16,8 +16,8 @@ int make_invoice();
 
 
 typedef struct{
-	char name[50];
-	char rest_code[10];		//Business id?
+	char name[64];
+	char rest_code[16];		//Business id?
 	float taxp;
 	
 }cat_details;
@@ -31,16 +31,23 @@ typedef struct{
 } datetime;
 
 
+
+
 typedef struct{
-	int item_number;
-	char name[25];
+	char name[32];
 	float sprice;
-	float profit;
+	float pcost;
 } inventory_piece;
 
 typedef struct{
-	char recep[25];
+	int num_menu;
+	inventory_piece pieces[128];
+} menu_list;
+
+
+typedef struct{
+	char recep[32];
 	datetime ptime;
-	int item_numbers[100][2];
+	int item_numbers[128][2];
 	int pieces_len;
-} invoice;
+w} invoice;

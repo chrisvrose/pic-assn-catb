@@ -46,6 +46,7 @@ Functions:
 
 
 cat_details company_details;
+menu_list menu;
 
 void read_cat_det(){
 	
@@ -76,8 +77,47 @@ int write_cat_det(){
 	return 1;
 }
 
-//read_inventory
+// making menulist files
+int write_menulist(){
+	FILE *fp = fopen("menu.details","wb+");
+	nocbreak();
+	
+	retry_menu_list:
+	printw("\nNumber of items in menu\n:");
+	refresh();
+	scanw("%d",menu.num_menu);
+	if(menu.num_menu>128)
+		goto retry_menu_list;
+	
+	
+	for(int i=0;i<menu.num_menu;i++){
+		printf("Item #%d",(i+1));
+		
+		printw("\nEnter item name\n:");
+		refresh();
+		scanw("%s",menu.name);
+		
+		printw("\nEnter item price and production cost\n:");
+		refresh();
+		scanw("%f %f",menu.sprice,menu.pcost);
+		
+	}
+	
+	fwrite(&menu,sizeof(menu_list),1,fp);
+	fclose(fp);
+	
+	cbreak();
+}
 
+
+int read_menu_list(){
+	FILE *fp = fopen("menu.details","rb");
+	fread(&menu,sizeof(menu_list),1,fp);
+	fclose(fp);
+	printw("\n%s %f",company_details.name,company_details.taxp);
+	refresh();
+	
+}
 
 
 
