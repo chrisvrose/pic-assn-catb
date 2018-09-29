@@ -50,4 +50,4 @@ typedef struct{
 	datetime ptime;
 	int item_numbers[128][2];
 	int pieces_len;
-w} invoice;
+} invoice;

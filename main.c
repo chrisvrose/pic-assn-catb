@@ -5,24 +5,16 @@ The solution provides complete details of the valid business details with user f
 
 Start
 	Menu:
-		1. Set Profits ( default 10% )		- Done
-		2. Billing				- 
-		3. View saved invoice			-
-		4. Generate reports			-
-		5. View saved report			-
-		6. Load inventory
-		7. Make and save inventory
+	1. 
+	2. 
+	3. 
+	4. 
+	5. 
+	6. 
+	7. 
+	8. Exit
 
-Input stuff:
-	Billing invoices
-	Profit Percentage (Setup as default 10%)
-	
-Structure definitions: 
-Output stuff:
 
-Functions:
-	- Read caterer details
-	- Read inventory
 
 */
 
@@ -85,21 +77,21 @@ int write_menulist(){
 	retry_menu_list:
 	printw("\nNumber of items in menu\n:");
 	refresh();
-	scanw("%d",menu.num_menu);
+	scanw("%d",&(menu.num_menu));
 	if(menu.num_menu>128)
 		goto retry_menu_list;
 	
 	
 	for(int i=0;i<menu.num_menu;i++){
-		printf("Item #%d",(i+1));
+		printw("Item %d",(i+1));
 		
 		printw("\nEnter item name\n:");
 		refresh();
-		scanw("%s",menu.name);
+		scanw("%s",menu.pieces[i].name);
 		
 		printw("\nEnter item price and production cost\n:");
 		refresh();
-		scanw("%f %f",menu.sprice,menu.pcost);
+		scanw("%f %f",&(menu.pieces[i].sprice),&(menu.pieces[i].pcost) );
 		
 	}
 	
@@ -110,11 +102,13 @@ int write_menulist(){
 }
 
 
-int read_menu_list(){
+int read_menulist(){
 	FILE *fp = fopen("menu.details","rb");
 	fread(&menu,sizeof(menu_list),1,fp);
 	fclose(fp);
-	printw("\n%s %f",company_details.name,company_details.taxp);
+	for(int i=0;i<menu.num_menu;i++){
+		printw("\n%s %f",menu.pieces[i].name,menu.pieces[i].pcost);
+	}
 	refresh();
 	
 }
@@ -194,9 +188,11 @@ int main(){
 			break;
 			case '4':
 				// Generate reports
+				read_menulist();
 			break;
 			case '5':
 				// View saved reports
+				write_menulist();
 			break;
 			case '6':
 				// Load inventory
