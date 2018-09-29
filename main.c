@@ -21,10 +21,10 @@ Start
 
 #include<stdio.h>
 #include<ctype.h>
-#include<string.h>
 #include<stdlib.h>
 #include<math.h>
 #include<ncurses.h>
+#include<time.h>
 
 #include "main.h"
 
@@ -39,18 +39,26 @@ Start
 
 cat_details company_details;
 menu_list menu;
+invoice last_invoice;
+char invoice_name_list[16][256];
 
+
+// Caterer details I/O
 void read_cat_det(){
 	
 	FILE *fp = fopen("company.details","rb");
 	fread(&company_details,sizeof(cat_details),1,fp);
 	fclose(fp);
-	printw("\n%s %f",company_details.name,company_details.taxp);
-	refresh();
+	print_cat_det();
 	
 }
 
-int write_cat_det(){
+void print_cat_det(){
+	printw("\n%s %f",company_details.name,company_details.taxp);
+	refresh();
+}
+
+void write_cat_det(){
 	FILE *fp = fopen("company.details","wb+");
 	clear();
 	nocbreak();
@@ -66,11 +74,10 @@ int write_cat_det(){
 	
 	fwrite(&company_details,sizeof(cat_details),1,fp);
 	fclose(fp);
-	return 1;
 }
 
-// making menulist files
-int write_menulist(){
+// Menulist I/O
+void write_menulist(){
 	FILE *fp = fopen("menu.details","wb+");
 	nocbreak();
 	
@@ -101,67 +108,35 @@ int write_menulist(){
 	cbreak();
 }
 
-
-int read_menulist(){
-	FILE *fp = fopen("menu.details","rb");
-	fread(&menu,sizeof(menu_list),1,fp);
-	fclose(fp);
+void print_menulist(){
 	for(int i=0;i<menu.num_menu;i++){
 		printw("\n%s %f",menu.pieces[i].name,menu.pieces[i].pcost);
 	}
 	refresh();
+}
+
+void read_menulist(){
+	FILE *fp = fopen("menu.details","rb");
+	fread(&menu,sizeof(menu_list),1,fp);
+	fclose(fp);
 	
+	print_menulist();
 }
 
-
-
-
-
-/*int set_profitper(float* p){
-	int c;
-
-	printf("\nCurrent profit percentage: %0.2f\n",(*p)*100 );
-	printf("Do you want to change it?(Y-1/N-0)\n:");
-	//fflush(stdin);fflush(stdout);
-	scanf("%d",&c);
-	if(c){
-		printf("Set profit percentage (Without %% symbol)\n:",*p);
-		scanf("%f",p);
-		(*p)/=100.0;
-		if(abs(*p)<=1.0){
-			printf("Set to: %.2f %%",(*p)*100);
-			return 1;
-		}
-		else{
-			printf("Range -> 0 - 100. Retry.\n");
-			return set_profitper(p);
-		}
-	}else{
-		return 0;
-	}
-}*/
-
-
-int make_invoice(){
-	printw("%d %d",sizeof(invoice),sizeof(inventory_piece));
-	return 1;
+// Billing invoices
+void write_invoice(){
+	time_t t = time(NULL);
+	struct tm *ct = localtime(&t);
+	printw("%d",ct->tm_year);
 }
 
-
-
-
-
-int save_invoice_log(inventory_piece a[],char location[]){
-	return 1;
+void print_invoice(){
 }
 
-int load_invoice_log(char location[]){
-	return 1;
+void read_invoice(){
+	print_invoice();
 }
 
-int billing(){
-	return 1;
-}
 
 
 int main(){
@@ -184,6 +159,7 @@ int main(){
 				make_invoice();
 			break;
 			case '3':
+				write_invoice();
 				// View saved invoices
 			break;
 			case '4':
