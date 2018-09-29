@@ -132,9 +132,10 @@ int input_item_number(){
 	//print menu_list
 	
 	printw("\n");
-	for(int i=0;i<menu.num_menu;i++)
-		printw("\r\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
-	
+	for(int i=0;i<menu.num_menu;i++){
+		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
+		refresh();
+	}
 	refresh();
 	scanw("%d",&input);
 	//cbreak();
@@ -165,11 +166,11 @@ void write_invoice(){
 		refresh();
 		scanw();*/
 		if((buffer = input_item_number()) != -1){
-		last_invoice.item_numbers[i][0] = buffer;
+			last_invoice.item_numbers[i][0] = buffer;
 		
-		printw("\nEnter item quantity\n:");
-		refresh();
-		scanw("%d", &(last_invoice.item_numbers[i][0]) );
+			printw("\nEnter item quantity\n:");
+			refresh();
+			scanw("%d", &(last_invoice.item_numbers[i][0]) );
 		}
 		else flag=0;
 	}
