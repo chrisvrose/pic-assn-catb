@@ -44,6 +44,12 @@ char invoice_name_list[16][256];
 
 
 // Caterer details I/O
+
+void print_cat_det(){
+	printw("\n%s %f",company_details.name,company_details.taxp);
+	refresh();
+}
+
 void read_cat_det(){
 	
 	FILE *fp = fopen("company.details","rb");
@@ -51,11 +57,6 @@ void read_cat_det(){
 	fclose(fp);
 	print_cat_det();
 	
-}
-
-void print_cat_det(){
-	printw("\n%s %f",company_details.name,company_details.taxp);
-	refresh();
 }
 
 void write_cat_det(){
