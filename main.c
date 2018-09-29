@@ -222,7 +222,7 @@ void read_invoice(){
 	refresh();
 	scanw("%d",&choice);
 	
-	FILE *fp = fopen(invoice_list.invoice_name_list[256][c-1],"rb");
+	FILE *fp = fopen(invoice_list.invoice_name_list[256][choice-1],"rb");
 	fread(&last_invoice,sizeof(invoice),1,fp);
 	fclose(fp);
 }
