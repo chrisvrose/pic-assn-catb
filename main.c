@@ -143,7 +143,7 @@ int input_item_number(){
 
 
 void write_invoice(){
-	char fn[20];int i,buffer;
+	char fn[20];int i,buffer,flag;
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);
