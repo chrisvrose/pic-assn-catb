@@ -58,5 +58,5 @@ typedef struct{
 
 typedef struct{
 	int num_invoice;
-	char invoice_name_list[256][20];
+	char invoice_name_list[256][32];
 } sinvoice_list;
