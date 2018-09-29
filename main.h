@@ -16,7 +16,7 @@ int input_item_number();
 
 
 
-void read_invoice_list()
+void read_invoice_list();
 
 typedef struct{
 	char name[64];

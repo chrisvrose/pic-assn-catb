@@ -209,7 +209,7 @@ void print_invoice(){
 }
 
 void read_invoice(){
-	print_invoice();
+	//print_invoice();
 }
 
 void read_invoice_list(){
