@@ -17,7 +17,6 @@ Input stuff:
 	Billing invoices
 	Profit Percentage (Setup as default 10%)
 	
-		
 Structure definitions: 
 Output stuff:
 
@@ -48,7 +47,7 @@ Functions:
 
 cat_details company_details;
 
-cat_details* read_cat_det(){
+void read_cat_det(){
 	
 	FILE *fp = fopen("company.details","rb");
 	
@@ -56,18 +55,27 @@ cat_details* read_cat_det(){
 }
 
 int write_cat_det(){
-	FILE *fp = fopen("company.details","wb");
+	FILE *fp = fopen("company.details","wb+");
 	clear();
 	nocbreak();
+
 	printw("Enter company name\n:");
 	refresh();
 	scanw("%s",company_details.name);
+
 	printw("Enter Tax%%\n:");
 	refresh();
-	scanw("%s",company_details.rest_code);
+	scanw("%f",company_details.taxp);
 	cbreak();
+	
+	fwrite(&company_details,sizeof(cat_details),1,fp);
+	fclose(fp);
 	return 1;
 }
+
+//read_inventory
+
+
 
 
 
@@ -124,6 +132,7 @@ int main(){
 	initscr();		//init ncurses
 	cbreak();
 	while(flag){
+		clear();
 		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Set Profit percentage\n2. Billing\n3. View saved invoice\n4. Generate report\n5.View saved report\n8. Exit\n:");
 		refresh();
 		choice = getch();
@@ -162,6 +171,7 @@ int main(){
 				
 		}
 		refresh();
+		printw("\nPress key to continue...");getch();
 	}
 	clear();
 	printw("\nExiting. Press any key");
