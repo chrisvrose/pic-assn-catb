@@ -194,11 +194,13 @@ void write_invoice(){
 		read_invoice_list();
 	}
 	
-	//write down this new stuff
-	strcpy(invoice_list[invoice_list.num_invoice],fn);
+	// write down this new stuff
+	// Copy string
+	for(int i=0;i<20;i++)
+		fn[i] = invoice_list[invoice_list.num_invoice][i];
 	invoice_list.num_invoice+=1;
 	
-	FILE *fp = fopen("bill_list.details","wb+");
+	fp = fopen("bill_list.details","wb+");
 	fwrite(&invoice_list,sizeof(sinvoice_list),1,fp);
 	fclose(fp);
 	//printw("\n%s\n",fn);
