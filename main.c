@@ -50,7 +50,10 @@ cat_details company_details;
 void read_cat_det(){
 	
 	FILE *fp = fopen("company.details","rb");
-	
+	fread(&company_details,sizeof(cat_details),1,fp);
+	fclose(fp);
+	printw("\n%s %f",company_details.name,company_details.taxp);
+	refresh();
 	
 }
 
@@ -65,7 +68,7 @@ int write_cat_det(){
 
 	printw("Enter Tax%%\n:");
 	refresh();
-	scanw("%f",company_details.taxp);
+	scanw("%f",&(company_details.taxp));
 	cbreak();
 	
 	fwrite(&company_details,sizeof(cat_details),1,fp);
@@ -157,6 +160,7 @@ int main(){
 			break;
 			case '6':
 				// Load inventory
+				read_cat_det();
 			break;
 			case '7':
 				// Make and save inventory
