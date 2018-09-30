@@ -47,12 +47,12 @@ typedef struct{
 	char name[32];
 	float sprice;
 	float pcost;
-} inventory_piece;
+} sinventory_piece;
 
 typedef struct{
 	int num_menu;
-	inventory_piece pieces[128];
-} menu_list;
+	sinventory_piece pieces[128];
+} smenu;
 
 
 
@@ -61,7 +61,7 @@ typedef struct{
 	//datetime ptime;
 	int item_numbers[128][2];
 	int pieces_len;
-} invoice;
+} sinvoice;
 
 
 typedef struct{

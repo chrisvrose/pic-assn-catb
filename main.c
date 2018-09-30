@@ -31,8 +31,8 @@ Start
 
 
 scat_details cat_details;
-menu_list menu;
-invoice last_invoice;
+smenu menu;
+sinvoice last_invoice;
 sinvoice_list invoice_list;
 
 
@@ -108,7 +108,7 @@ void write_menulist(){
 		
 	}
 	FILE *fp = fopen("menu.details","wb+");
-	fwrite(&menu,sizeof(menu_list),1,fp);
+	fwrite(&menu,sizeof(smenu),1,fp);
 	fclose(fp);
 	
 	cbreak();
@@ -124,7 +124,7 @@ void print_menulist(){
 void read_menulist(){
 	if(exists("menu.details")){
 		FILE *fp = fopen("menu.details","rb");
-		fread(&menu,sizeof(menu_list),1,fp);
+		fread(&menu,sizeof(smenu),1,fp);
 		fclose(fp);
 	}
 	
@@ -135,7 +135,7 @@ void read_menulist(){
 
 int input_item_number(){
 	int input=-1;
-	//print menu_list
+	//print smenu
 	clear();
 	
 	printw("Enter items in menu:\n");
@@ -185,7 +185,7 @@ void write_invoice(){
 	
 	
 	FILE *fp = fopen(fn,"wb+");
-	fwrite(&last_invoice,sizeof(invoice),1,fp);
+	fwrite(&last_invoice,sizeof(sinvoice),1,fp);
 	fclose(fp);
 	
 	
@@ -228,7 +228,7 @@ void read_invoice(){
 	scanw("%d",&choice);
 	
 	FILE *fp = fopen(invoice_list.invoice_name_list[choice-1],"rb");
-	fread(&last_invoice,sizeof(invoice),1,fp);
+	fread(&last_invoice,sizeof(sinvoice),1,fp);
 	fclose(fp);
 }
 
@@ -254,7 +254,7 @@ void report(){
 	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
 	for(int i=0;i<invoice_list.num_invoice;i++){
 		FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
-		fread(&last_invoice,sizeof(invoice),1,fp);
+		fread(&last_invoice,sizeof(sinvoice),1,fp);
 		total_sprice+= menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
 		total_pcost += menu.pieces[ last_invoice.item_numbers[i][0] ].pcost;
 		num_items += last_invoice.item_numbers[i][1];
