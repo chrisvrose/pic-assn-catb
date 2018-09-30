@@ -62,7 +62,7 @@ void print_cat_det(){
 }
 
 void read_cat_det(){
-	if(exists("company.details"){
+	if(exists("company.details")){
 		FILE *fp = fopen("company.details","rb");
 		fread(&company_details,sizeof(cat_details),1,fp);
 		fclose(fp);
