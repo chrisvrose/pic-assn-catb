@@ -244,6 +244,7 @@ void print_invoice(){
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
 		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
+		printw("\nD:%d %d",(i+1), last_invoice.item_numbers[i][0] );
 		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice.item_numbers[i][0] ].name,menu.pieces[ last_invoice.item_numbers[i][0] ].sprice);
 		refresh();
 	}
