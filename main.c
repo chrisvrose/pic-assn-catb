@@ -181,7 +181,7 @@ void write_invoice(){
 		
 			printw("\nEnter item quantity\n:");
 			refresh();
-			scanw("%d", &(last_invoice.item_numbers[i][0]) );
+			scanw("%d", &(last_invoice.item_numbers[i][1]) );
 		}
 	}
 	
