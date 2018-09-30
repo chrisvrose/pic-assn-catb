@@ -29,14 +29,6 @@ Start
 
 #include "main.h"
 
-#ifdef _WIN32
-#include<Windows.h>
-#define u_sleep(x) Sleep(x)
-#else
-#include<unistd.h>
-#define u_sleep(x) sleep(x)
-#endif
-
 
 cat_details company_details;
 menu_list menu;
@@ -271,8 +263,8 @@ void report(){
 	total_tax = total_sprice*company_details.taxp/100;
 	total_profit = total_sprice+total_tax-total_pcost;
 	
-	printf("\n %f %f %f %f", num_items, total_tax , total_pcost , total_sprice );
-	//refresh();
+	printw("\n Totalling - %f %f %f %f", num_items, total_tax , total_pcost , total_sprice );
+	refresh();
 }
 
 
@@ -320,15 +312,8 @@ int main(){
 				print_invoice();
 			break;
 			case '7':
-				// Print invoice
-				print_invoice();
-			break;
-			case '8':
 				// Make report
 				report();
-			break;
-			case '9':
-				//flag = 0;
 			break;
 			case '0':
 				// Exit
