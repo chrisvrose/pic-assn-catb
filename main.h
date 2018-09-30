@@ -34,7 +34,7 @@ typedef struct{
 	char rest_code[16];		//Business id?
 	float taxp;
 	
-}cat_details;
+}scat_details;
 
 
 /*typedef struct{
