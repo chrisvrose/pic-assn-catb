@@ -30,7 +30,7 @@ Start
 #include "main.h"
 
 
-cat_details company_details;
+scat_details cat_details;
 menu_list menu;
 invoice last_invoice;
 sinvoice_list invoice_list;
@@ -49,14 +49,14 @@ int exists(const char *fname){
 // Caterer details I/O
 
 void print_cat_det(){
-	printw("\n%s %f",company_details.name,company_details.taxp);
+	printw("\n%s %f",cat_details.name,cat_details.taxp);
 	refresh();
 }
 
 void read_cat_det(){
 	if(exists("company.details")){
 		FILE *fp = fopen("company.details","rb");
-		fread(&company_details,sizeof(cat_details),1,fp);
+		fread(&cat_details,sizeof(scat_details),1,fp);
 		fclose(fp);
 	}
 	//print_cat_det();
@@ -70,14 +70,14 @@ void write_cat_det(){
 
 	printw("Enter company name\n:");
 	refresh();
-	scanw("%s",company_details.name);
+	scanw("%s",cat_details.name);
 
 	printw("Enter Tax%%\n:");
 	refresh();
-	scanw("%f",&(company_details.taxp));
+	scanw("%f",&(cat_details.taxp));
 	cbreak();
 	
-	fwrite(&company_details,sizeof(cat_details),1,fp);
+	fwrite(&cat_details,sizeof(scat_details),1,fp);
 	fclose(fp);
 }
 
@@ -260,7 +260,7 @@ void report(){
 		num_items += last_invoice.item_numbers[i][1];
 		fclose(fp);
 	}
-	total_tax = total_sprice*company_details.taxp/100;
+	total_tax = total_sprice*cat_details.taxp/100;
 	total_profit = total_sprice+total_tax-total_pcost;
 	
 	printw("\n Totalling - %f %f %f %f", num_items, total_tax , total_pcost , total_sprice );

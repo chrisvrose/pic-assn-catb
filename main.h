@@ -4,6 +4,10 @@
 
 int exists(const char *fname);
 
+
+//Functions - Functionality has been finalized
+//TODO - ADD safeguards for off-limit inputs
+
 void print_cat_det();
 void read_cat_det();
 void write_cat_det();
@@ -20,6 +24,10 @@ void read_invoice();
 void print_invoice();
 
 void read_invoice_list();
+
+void report();
+
+
 
 typedef struct{
 	char name[64];
