@@ -5,19 +5,16 @@ The solution provides complete details of the valid business details with user f
 
 Start
 	Menu:
-	1. 
-	2. 
-	3. 
-	4. 
-	5. 
-	6. 
-	7. 
-	8. Exit
-
-
+	1. Save Caterer Info
+	2. Read Caterer Info
+	3. Save Menu List
+	4. View Menu List
+	5. Make invoice
+	6. Load and view invoice
+	7. Generate report
+	0. Exit
 
 */
-
 
 #include<stdio.h>
 #include<ctype.h>
@@ -28,7 +25,6 @@ Start
 #include<time.h>
 
 #include "main.h"
-
 
 scat_details cat_details;
 smenu menu;
@@ -248,7 +244,6 @@ void print_invoice(){
 
 
 
-
 void report(){
 	int num_items=0;
 	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
@@ -268,19 +263,18 @@ void report(){
 }
 
 
-
 int main(){
 	int choice,flag=1;
 	initscr();		//init ncurses
 	
 	//Init stuff from memory
-	
 	read_menulist();
 	read_cat_det();
+	
 	//cbreak();
 	while(flag){
 		clear();
-		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n6. Read invoice\n0. Exit\n:");
+		printw("\n\nMOTD: " MOTD "\nOptions:\n1. Save Caterer Info\n2. Read Caterer Info\n3. Save Menu List\n4. View Menu List\n5. Make invoice\n6. Load and view invoice\n7. Generate report\n0. Exit\n:");
 		refresh();
 		choice = getch();
 		switch(choice){
