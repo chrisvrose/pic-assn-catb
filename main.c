@@ -62,7 +62,7 @@ void read_cat_det(){
 void write_cat_det(){
 	FILE *fp = fopen("company.details","wb+");
 	clear();
-	nocbreak();
+	//nocbreak();
 
 	printw("Enter company name\n:");
 	refresh();
@@ -71,7 +71,7 @@ void write_cat_det(){
 	printw("Enter Tax%%\n:");
 	refresh();
 	scanw("%f",&(cat_details.taxp));
-	cbreak();
+	//cbreak();
 	
 	fwrite(&cat_details,sizeof(scat_details),1,fp);
 	fclose(fp);
@@ -107,7 +107,7 @@ void write_menulist(){
 	fwrite(&menu,sizeof(smenu),1,fp);
 	fclose(fp);
 	
-	cbreak();
+	//cbreak();
 }
 
 void print_menulist(){
