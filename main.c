@@ -62,10 +62,11 @@ void print_cat_det(){
 }
 
 void read_cat_det(){
-	
-	FILE *fp = fopen("company.details","rb");
-	fread(&company_details,sizeof(cat_details),1,fp);
-	fclose(fp);
+	if(exists("company.details"){
+		FILE *fp = fopen("company.details","rb");
+		fread(&company_details,sizeof(cat_details),1,fp);
+		fclose(fp);
+	}
 	//print_cat_det();
 	
 }
@@ -123,15 +124,17 @@ void write_menulist(){
 
 void print_menulist(){
 	for(int i=0;i<menu.num_menu;i++){
-		printw("\n%s %f",menu.pieces[i].name,menu.pieces[i].pcost);
+		printw("\n%s %f %f",menu.pieces[i].name,menu.pieces[i].sprice,menu.pieces[i].pcost);
 	}
 	refresh();
 }
 
 void read_menulist(){
-	FILE *fp = fopen("menu.details","rb");
-	fread(&menu,sizeof(menu_list),1,fp);
-	fclose(fp);
+	if(exists("menu.details")){
+		FILE *fp = fopen("menu.details","rb");
+		fread(&menu,sizeof(menu_list),1,fp);
+		fclose(fp);
+	}
 	
 	//print_menulist();
 }
@@ -141,8 +144,9 @@ void read_menulist(){
 int input_item_number(){
 	int input=-1;
 	//print menu_list
+	clear();
 	
-	printw("\n");
+	printw("Enter items in menu:\n");
 	for(int i=0;i<menu.num_menu;i++){
 		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 		refresh();
@@ -167,7 +171,6 @@ void write_invoice(){
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);
 	// last_invoice - Structure to store last generated invoice
-	//nocbreak();		// prepare for input
 	
 	//Receipt recipient
 	printw("\nInvoice Recipient\n:");
@@ -244,7 +247,7 @@ void print_invoice(){
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
 		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
-		printw("\nD:%d %d",(i+1), last_invoice.item_numbers[i][0] );
+		// Print corresponding menu items
 		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice.item_numbers[i][0] ].name,menu.pieces[ last_invoice.item_numbers[i][0] ].sprice);
 		refresh();
 	}
@@ -255,6 +258,21 @@ void print_invoice(){
 
 
 void report(){
+	int num_items=0;
+	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
+	for(int i=0;i<invoice_list.num_invoice;i++){
+		FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
+		fread(&last_invoice,sizeof(invoice),1,fp);
+		total_sprice+= menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
+		total_pcost += menu.pieces[ last_invoice.item_numbers[i][0] ].pcost;
+		num_items += last_invoice.item_numbers[i][1];
+		fclose(fp);
+	}
+	total_tax = total_sprice*company_details.taxp/100;
+	total_profit = total_sprice+total_tax-total_pcost;
+	
+	printf("\n %f %f %f %f", num_items, total_tax , total_pcost , total_sprice );
+	//refresh();
 }
 
 
@@ -262,6 +280,11 @@ void report(){
 int main(){
 	int choice,flag=1;
 	initscr();		//init ncurses
+	
+	//Init stuff from memory
+	
+	read_menulist();
+	read_cat_det();
 	//cbreak();
 	while(flag){
 		clear();
