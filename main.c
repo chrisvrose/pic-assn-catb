@@ -81,7 +81,7 @@ void write_cat_det(){
 
 void write_menulist(){
 	//FILE *fp = fopen("menu.details","wb+");
-	nocbreak();
+	//nocbreak();
 	
 	retry_menu_list:
 	printw("\nNumber of items in menu\n:");
