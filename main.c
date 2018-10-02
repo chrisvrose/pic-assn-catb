@@ -172,7 +172,7 @@ int write_invoice(){
 	printw("Enter item numbers(0 to exit):\n");
 	for(i=0;i<128&&(buffer);i++){
 		if(buffer = input_item_number()){		// Can be anything but zero
-			last_invoice.item_numbers[i][0] = buffer;
+			last_invoice.item_numbers[i][0] = buffer-1;
 		
 			printw("\nEnter item quantity\n:");
 			refresh();
