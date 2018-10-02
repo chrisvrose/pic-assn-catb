@@ -152,10 +152,14 @@ int input_item_number(){
 	return input;
 }
 
-void read_invoice_list(){
-	FILE *fp = fopen("bill_list.details","rb+");
-	fread(&invoice_list,sizeof(sinvoice_list),1,fp);
-	fclose(fp);
+int read_invoice_list(){
+	if(exists("Bill_list.details"{
+		FILE *fp = fopen("bill_list.details","rb+");
+		fread(&invoice_list,sizeof(sinvoice_list),1,fp);
+		fclose(fp);
+		return 1;
+	}
+	else return 0;
 }
 
 int write_invoice(){

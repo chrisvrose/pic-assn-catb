@@ -8,4 +8,12 @@ INPUT Choice
 
 
 
+if Choice=1 then
+	
+	
+	
+else
+	
+endif
+
 STOP
