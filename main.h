@@ -17,7 +17,7 @@ void print_menulist();
 int read_menulist();
 
 int input_item_number();
-void read_invoice_list();
+int read_invoice_list();
 
 int write_invoice();
 void read_invoice();
