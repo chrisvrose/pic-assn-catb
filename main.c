@@ -68,7 +68,7 @@ void write_cat_det(){
 
 	printw("Enter company name\n:");
 	refresh();
-	scanw("%s",cat_details.name);
+	getstr(cat_details.name);
 
 	printw("Enter Tax%%\n:");
 	refresh();
@@ -98,7 +98,7 @@ void write_menulist(){
 		
 		printw("\nEnter item name\n:");
 		refresh();
-		scanw("%s",menu.pieces[i].name);
+		getstr(menu.pieces[i].name);
 		
 		printw("\nEnter item price and production cost\n:");
 		refresh();
