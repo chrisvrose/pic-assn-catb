@@ -85,7 +85,7 @@ void write_menulist(){
 	//FILE *fp = fopen("menu.details","wb+");
 	//nocbreak();
 	
-	retry_menu_list:prub
+	retry_menu_list:
 	printw("\nNumber of items in menu\n:");
 	refresh();
 	scanw("%d",&(menu.num_menu));
@@ -153,7 +153,7 @@ int input_item_number(){
 }
 
 int read_invoice_list(){
-	if(exists("bill_list.details"){
+	if(exists("bill_list.details")){
 		FILE *fp = fopen("bill_list.details","rb+");
 		fread(&invoice_list,sizeof(sinvoice_list),1,fp);
 		fclose(fp);
