@@ -1,0 +1,11 @@
+START
+
+FLAG=1
+FLAG_hasloadedmenu=0
+FLAG_hasloadedcat=0
+
+INPUT Choice
+
+
+
+STOP

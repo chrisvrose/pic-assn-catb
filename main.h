@@ -9,12 +9,12 @@ int exists(const char *fname);
 //TODO - ADD safeguards for off-limit inputs
 
 void print_cat_det();
-void read_cat_det();
+int read_cat_det();
 void write_cat_det();
 
 void write_menulist();
 void print_menulist();
-void read_menulist();
+int read_menulist();
 
 int input_item_number();
 void read_invoice_list();

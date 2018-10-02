@@ -49,12 +49,14 @@ void print_cat_det(){
 	refresh();
 }
 
-void read_cat_det(){
+int read_cat_det(){
 	if(exists("company.details")){
 		FILE *fp = fopen("company.details","rb");
 		fread(&cat_details,sizeof(scat_details),1,fp);
 		fclose(fp);
+		return 1;
 	}
+	else return 0;
 	//print_cat_det();
 	
 }
@@ -117,12 +119,14 @@ void print_menulist(){
 	refresh();
 }
 
-void read_menulist(){
+int read_menulist(){
 	if(exists("menu.details")){
 		FILE *fp = fopen("menu.details","rb");
 		fread(&menu,sizeof(smenu),1,fp);
 		fclose(fp);
+		return 1;
 	}
+	else return 0;
 	
 	//print_menulist();
 }
@@ -264,12 +268,12 @@ void report(){
 
 
 int main(){
-	int choice,flag=1;
+	int choice,flag=1,flag_hasloadedmenu=0,flag_hasloadedcat=0;
 	initscr();		//init ncurses
 	
 	//Init stuff from memory
-	read_menulist();
-	read_cat_det();
+	flag_hasloadedmenu=read_menulist();
+	flag_hasloadedcat=read_cat_det();
 	
 	//cbreak();
 	while(flag){
