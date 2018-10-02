@@ -262,7 +262,7 @@ void report(){
 	for(int i=0;i<invoice_list.num_invoice;i++){
 		FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
 		fread(&last_invoice,sizeof(sinvoice),1,fp);
-		for(int j=0;j<last.invoice.pieces_len;j++){
+		for(int j=0;j<last_invoice.pieces_len;j++){
 			total_sprice+= menu.pieces[ last_invoice.item_numbers[j][0] ].sprice * last_invoice.item_numbers[j][1];
 			total_pcost += menu.pieces[ last_invoice.item_numbers[j][0] ].pcost * last_invoice.item_numbers[j][1];
 			num_items += last_invoice.item_numbers[j][1];
