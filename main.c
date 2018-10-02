@@ -113,8 +113,9 @@ void write_menulist(){
 }
 
 void print_menulist(){
+	printw("\nItem name\tPrice\tProduction");
 	for(int i=0;i<menu.num_menu;i++){
-		printw("\n%s %f %f",menu.pieces[i].name,menu.pieces[i].sprice,menu.pieces[i].pcost);
+		printw("\n%s\t%.2f\t%.2f",menu.pieces[i].name,menu.pieces[i].sprice,menu.pieces[i].pcost);
 	}
 	refresh();
 }
@@ -241,16 +242,16 @@ void read_invoice(){
 
 void print_invoice(){
 	//print_invoice();
-	printw("\n%s\n",last_invoice.recep);int total_price=0;
+	printw("\n%s\n",last_invoice.recep);float total_price=0;
 	printw("Items:\n");
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
-		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice * last_invoice.item_numbers[i][1];		//Price * quantity
+		total_price += menu.pieces[ last_invoice.item_numbers[i][0] ].sprice * last_invoice.item_numbers[i][1];		//Price * quantity
 		// Print corresponding menu items
-		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice.item_numbers[i][0] ].name,menu.pieces[ last_invoice.item_numbers[i][0] ].sprice);
+		printw("\n%d.\t%s\t%.2f * %d",(i+1) , menu.pieces[ last_invoice.item_numbers[i][0] ].name , menu.pieces[ last_invoice.item_numbers[i][0] ].sprice , last_invoice.item_numbers[i][1] );
 		refresh();
 	}
-	printw("\nBilled Amount:%d",total_price);
+	printw("\nBilled Amount:%.2f",total_price);
 }
 
 
@@ -269,7 +270,7 @@ void report(){
 	total_tax = total_sprice*cat_details.taxp/100;
 	total_profit = total_sprice+total_tax-total_pcost;
 	
-	printw("\n Totalling - %f %f %f %f", num_items, total_tax , total_pcost , total_sprice );
+	printw("\n Totalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f", num_items, total_tax , total_pcost , total_sprice );
 	refresh();
 }
 
