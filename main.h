@@ -23,7 +23,7 @@ int write_invoice();
 void read_invoice();
 void print_invoice();
 
-void read_invoice_list();
+//void read_invoice_list();
 
 void report();
 
