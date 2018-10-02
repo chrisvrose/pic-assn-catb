@@ -157,7 +157,7 @@ void read_invoice_list(){
 	fclose(fp);
 }
 
-void write_invoice(){
+int write_invoice(){
 	char fn[32];int i,buffer,flag;
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
@@ -183,6 +183,11 @@ void write_invoice(){
 	printw("\nNumber of items ordered: %d",i-1);
 	last_invoice.pieces_len = i-1;
 	
+	if(last_invoice.pieces_len==0) {
+		printw("\nNothing in bill. Cancelling order");
+		refresh();
+		return 0;
+	}
 	
 	FILE *fp = fopen(fn,"wb+");
 	fwrite(&last_invoice,sizeof(sinvoice),1,fp);
@@ -206,6 +211,8 @@ void write_invoice(){
 	
 	printw("\nBill saved and updated");
 	refresh();
+	
+	return last_invoice.pieces_len;
 }
 
 
@@ -238,7 +245,7 @@ void print_invoice(){
 	printw("Items:\n");
 	refresh();
 	for(int i=0;i<last_invoice.pieces_len;i++){
-		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
+		total_price+=menu.pieces[ last_invoice.item_numbers[i][0] ].sprice * last_invoice.item_numbers[i][1];		//Price * quantity
 		// Print corresponding menu items
 		printw("\n%d.\t%s\t%f",(i+1),menu.pieces[ last_invoice.item_numbers[i][0] ].name,menu.pieces[ last_invoice.item_numbers[i][0] ].sprice);
 		refresh();
@@ -254,8 +261,8 @@ void report(){
 	for(int i=0;i<invoice_list.num_invoice;i++){
 		FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
 		fread(&last_invoice,sizeof(sinvoice),1,fp);
-		total_sprice+= menu.pieces[ last_invoice.item_numbers[i][0] ].sprice;
-		total_pcost += menu.pieces[ last_invoice.item_numbers[i][0] ].pcost;
+		total_sprice+= menu.pieces[ last_invoice.item_numbers[i][0] ].sprice * last_invoice.item_numbers[i][1];
+		total_pcost += menu.pieces[ last_invoice.item_numbers[i][0] ].pcost * last_invoice.item_numbers[i][1];
 		num_items += last_invoice.item_numbers[i][1];
 		fclose(fp);
 	}
@@ -284,20 +291,26 @@ int main(){
 		switch(choice){
 			case '1':
 				// Write caterer details
-				write_cat_det();
+				if(flag_hasloadedcat)
+					write_cat_det();
+				else
+					printw("\nCaterer details not present. Please make one");
 			break;
 			case '2':
 				// Get caterer details
-				read_cat_det();
+				flag_hasloadedcat = read_cat_det();
 				print_cat_det();
 			break;
 			case '3':
 				// Write menu list
-				write_menulist();
+				if(flag_hasloadedmenu)
+					write_menulist();
+				else
+					printw("\nNo menu list present. Please make one");
 			break;
 			case '4':
 				// Load the menu list and print
-				read_menulist();
+				flag_hasloadedmenu = read_menulist();
 				print_menulist();
 			break;
 			case '5':
