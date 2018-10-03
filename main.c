@@ -191,7 +191,7 @@ int write_invoice(){
 	//Receipt recipient
 	printw("\nInvoice Recipient\n:");
 	refresh();
-	scanw("%s",last_invoice.recep);
+	getstr(last_invoice.recep);
 	
 	printw("Enter item numbers(0 to exit):\n");
 	for(i=0;i<128&&(buffer);i++){
