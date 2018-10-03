@@ -298,7 +298,7 @@ int report(){
 	
 	
 	for(int i=0;i<invoice_list.num_invoice;i++){
-		if(invoice_list.invoice_name_list[i],fn,0,str_datebounds[choice]){
+		if( check_substreq(invoice_list.invoice_name_list[i],fn,0,str_datebounds[choice]) ){
 			printw("\n%s",invoice_list.invoice_name_list[i]);refresh();
 			FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
 			fread(&last_invoice,sizeof(sinvoice),1,fp);
