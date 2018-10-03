@@ -42,6 +42,21 @@ int exists(const char *fname){
     return 0;
 }
 
+
+
+int check_substreq(char *str1,char *str2,len_start,len_end){
+	int fl = 1;
+	for(int i=len_start;i<len_end;i++){
+		if(str1[i]!=str2[i]){
+			fl = 0;
+			break;
+		}
+	}
+	
+	return fl;
+}
+
+
 // Caterer details I/O
 
 void print_cat_det(){
@@ -260,7 +275,56 @@ void print_invoice(){
 
 
 
-void report(){
+int report(){
+	int choice;char fn[32];
+	int str_datebounds = {0,4,6,8};
+	clear();
+	time_t t = time(NULL);
+	struct tm *ct = localtime(&t);
+	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);		//store the current bill date if it were to be generated, in fn
+	
+	
+	int num_items=0;
+	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
+	
+	printw("\nChoose interval:\n1. Year\n2. Month\n3. Day\n:");
+	refresh();
+	scanf("%d",&choice);
+	if(choice>3&&choice<3){
+		printw("\nError.Retry");
+		refresh();
+		return 0;
+	}
+	
+	
+	for(int i=0;i<invoice_list.num_invoice;i++){
+		if(invoice_list.invoice_name_list[i],fn,0,str_datebounds[choice]){
+			FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
+			fread(&last_invoice,sizeof(sinvoice),1,fp);
+			for(int j=0;j<last_invoice.pieces_len;j++){
+				total_sprice+= menu.pieces[ last_invoice.item_numbers[j][0] ].sprice * last_invoice.item_numbers[j][1];
+				total_pcost += menu.pieces[ last_invoice.item_numbers[j][0] ].pcost * last_invoice.item_numbers[j][1];
+				num_items += last_invoice.item_numbers[j][1];
+			}
+			fclose(fp);
+		}
+	}
+	
+	if(num_items != 0){
+		total_tax = total_sprice*cat_details.taxp/100;
+		total_profit = total_sprice+total_tax-total_pcost;
+		printw("\nTotalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f", num_items, total_tax , total_pcost , total_sprice );
+	}
+	else{
+		printw("\nNo items. Try a wider range, maybe.");
+	}
+	
+	refresh();
+	return 1;
+}
+
+
+/*void report(){
 	int num_items=0;
 	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
 	for(int i=0;i<invoice_list.num_invoice;i++){
@@ -278,7 +342,7 @@ void report(){
 	
 	printw("\n Totalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f", num_items, total_tax , total_pcost , total_sprice );
 	refresh();
-}
+}*/
 
 
 int main(){

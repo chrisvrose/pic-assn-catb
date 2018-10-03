@@ -25,7 +25,7 @@ void print_invoice();
 
 //void read_invoice_list();
 
-void report();
+int report();
 
 
 
