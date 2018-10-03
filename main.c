@@ -60,7 +60,7 @@ int check_substreq(char *str1,char *str2,int len_start,int len_end){
 // Caterer details I/O
 
 void print_cat_det(){
-	printw("\n%s %f",cat_details.name,cat_details.taxp);
+	printw("\nCompany Name:%s\nTax Percent:%.2f",cat_details.name,cat_details.taxp);
 	refresh();
 }
 
@@ -147,7 +147,7 @@ int read_menulist(){
 	//print_menulist();
 }
 
-// Billing invoices
+// Random required functions
 
 int input_item_number(){
 	int input=-1;
@@ -155,6 +155,7 @@ int input_item_number(){
 	clear();
 	
 	printw("Enter items in menu:\n");
+	printw("\nItem name\tPrice");
 	for(int i=0;i<menu.num_menu;i++){
 		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
 		refresh();
@@ -177,6 +178,8 @@ int read_invoice_list(){
 	else return 0;
 }
 
+
+// Billing invoices
 
 int write_invoice(){
 	char fn[32];int i,buffer,flag;
@@ -268,13 +271,13 @@ void print_invoice(){
 	for(int i=0;i<last_invoice.pieces_len;i++){
 		total_price += menu.pieces[ last_invoice.item_numbers[i][0] ].sprice * last_invoice.item_numbers[i][1];		//Price * quantity
 		// Print corresponding menu items
-		printw("\n%d.\t%s\t%.2f * %d",(i+1) , menu.pieces[ last_invoice.item_numbers[i][0] ].name , menu.pieces[ last_invoice.item_numbers[i][0] ].sprice , last_invoice.item_numbers[i][1] );
+		printw("\n%d.\t%s\t - %.2f * %d",(i+1) , menu.pieces[ last_invoice.item_numbers[i][0] ].name , menu.pieces[ last_invoice.item_numbers[i][0] ].sprice , last_invoice.item_numbers[i][1] );
 		refresh();
 	}
 	printw("\nBilled Amount:%.2f",total_price);
 }
 
-
+//Print Report
 
 int report(){
 	int choice;char fn[32];
@@ -324,27 +327,6 @@ int report(){
 	refresh();
 	return 1;
 }
-
-
-/*void report(){
-	int num_items=0;
-	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
-	for(int i=0;i<invoice_list.num_invoice;i++){
-		FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
-		fread(&last_invoice,sizeof(sinvoice),1,fp);
-		for(int j=0;j<last_invoice.pieces_len;j++){
-			total_sprice+= menu.pieces[ last_invoice.item_numbers[j][0] ].sprice * last_invoice.item_numbers[j][1];
-			total_pcost += menu.pieces[ last_invoice.item_numbers[j][0] ].pcost * last_invoice.item_numbers[j][1];
-			num_items += last_invoice.item_numbers[j][1];
-		}
-		fclose(fp);
-	}
-	total_tax = total_sprice*cat_details.taxp/100;
-	total_profit = total_sprice+total_tax-total_pcost;
-	
-	printw("\n Totalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f", num_items, total_tax , total_pcost , total_sprice );
-	refresh();
-}*/
 
 
 int main(){
