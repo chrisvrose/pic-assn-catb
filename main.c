@@ -154,7 +154,7 @@ int input_item_number(){
 	//print smenu
 	clear();
 	
-	printw("Enter items in menu:\n");
+	printw("Enter items in menu(Enter 0 to exit):\n");
 	printw("\nItem name\tPrice");
 	for(int i=0;i<menu.num_menu;i++){
 		printw("\n%d. \t%s\t- %.2f",(i+1),menu.pieces[i].name,menu.pieces[i].sprice);
