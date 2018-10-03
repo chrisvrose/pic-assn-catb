@@ -282,7 +282,7 @@ int report(){
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);		//store the current bill date if it were to be generated, in fn
-	
+	printw("\n%s",fn);
 	
 	int num_items=0;
 	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
