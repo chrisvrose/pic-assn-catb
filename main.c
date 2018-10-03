@@ -247,6 +247,11 @@ int read_invoice(){
 	else
 		read_invoice_list();
 	
+	if(invoice_list.num_invoice == 0){
+		printw("\nNo invoices. Try again");
+		/* refresh(); */
+	}
+	
 	
 	printw("Choose invoice to print:\n");
 	for(int i=0;i<invoice_list.num_invoice;i++){
@@ -347,27 +352,28 @@ int main(){
 		switch(choice){
 			case '1':
 				// Write caterer details
-				if(flag_hasloadedcat)
-					write_cat_det();
-				else
-					printw("\nCaterer details not present. Please make one");
+				write_cat_det();
 			break;
 			case '2':
 				// Get caterer details
 				flag_hasloadedcat = read_cat_det();
-				print_cat_det();
+				if(flag_hasloadedcat)
+					print_cat_det();
+				else
+					printw("\nCaterer details not present. Please make one");
 			break;
 			case '3':
 				// Write menu list
-				if(flag_hasloadedmenu)
-					write_menulist();
-				else
-					printw("\nNo menu list present. Please make one");
+				write_menulist();
+				
 			break;
 			case '4':
 				// Load the menu list and print
 				flag_hasloadedmenu = read_menulist();
-				print_menulist();
+				if(flag_hasloadedmenu)
+					print_menulist();
+				else
+					printw("\nNo menu list present. Please make one");
 			break;
 			case '5':
 				// Make invoice
