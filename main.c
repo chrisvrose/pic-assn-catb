@@ -44,7 +44,7 @@ int exists(const char *fname){
 
 
 
-int check_substreq(char *str1,char *str2,len_start,len_end){
+int check_substreq(char *str1,char *str2,int len_start,int len_end){
 	int fl = 1;
 	for(int i=len_start;i<len_end;i++){
 		if(str1[i]!=str2[i]){
@@ -277,7 +277,7 @@ void print_invoice(){
 
 int report(){
 	int choice;char fn[32];
-	int str_datebounds = {0,4,6,8};
+	int str_datebounds[] = {0,4,6,8};
 	clear();
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);

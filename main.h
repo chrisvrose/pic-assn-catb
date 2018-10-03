@@ -3,7 +3,7 @@
 #define MAX_ITEM_LIST 150
 
 int exists(const char *fname);
-
+int check_substreq(char *,char *,int,int);
 
 //Functions - Functionality has been finalized
 //TODO - ADD safeguards for off-limit inputs
