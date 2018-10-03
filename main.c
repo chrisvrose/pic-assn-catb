@@ -289,8 +289,8 @@ int report(){
 	
 	printw("\nChoose interval:\n1. Year\n2. Month\n3. Day\n:");
 	refresh();
-	scanf("%d",&choice);
-	if(choice>3&&choice<3){
+	scanw("%d",&choice);
+	if(choice>3&&choice<0){
 		printw("\nError.Retry");
 		refresh();
 		return 0;
