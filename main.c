@@ -177,6 +177,7 @@ int read_invoice_list(){
 	else return 0;
 }
 
+
 int write_invoice(){
 	char fn[32];int i,buffer,flag;
 	time_t t = time(NULL);
@@ -235,8 +236,7 @@ int write_invoice(){
 	return last_invoice.pieces_len;
 }
 
-
-void read_invoice(){
+int read_invoice(){
 	clear();int choice;
 	
 	if(!exists("bill_list.details"))
@@ -257,6 +257,7 @@ void read_invoice(){
 	FILE *fp = fopen(invoice_list.invoice_name_list[choice-1],"rb");
 	fread(&last_invoice,sizeof(sinvoice),1,fp);
 	fclose(fp);
+	return 1;
 }
 
 void print_invoice(){
@@ -282,7 +283,7 @@ int report(){
 	time_t t = time(NULL);
 	struct tm *ct = localtime(&t);
 	sprintf(fn,"%d%02d%02d %02d%02d%02d.bill",ct->tm_year+1900, ct->tm_mon + 1, ct->tm_mday, ct->tm_hour, ct->tm_min, ct->tm_sec);		//store the current bill date if it were to be generated, in fn
-	printw("\n%s",fn);
+	
 	
 	int num_items=0;
 	float total_sprice=0,total_profit=0,total_pcost=0,total_tax=0;
@@ -299,7 +300,7 @@ int report(){
 	
 	for(int i=0;i<invoice_list.num_invoice;i++){
 		if( check_substreq(invoice_list.invoice_name_list[i],fn,0,str_datebounds[choice]) ){
-			printw("\n%s",invoice_list.invoice_name_list[i]);refresh();
+			
 			FILE *fp = fopen(invoice_list.invoice_name_list[i],"rb");
 			fread(&last_invoice,sizeof(sinvoice),1,fp);
 			for(int j=0;j<last_invoice.pieces_len;j++){
@@ -347,12 +348,13 @@ int report(){
 
 
 int main(){
-	int choice,flag=1,flag_hasloadedmenu=0,flag_hasloadedcat=0;
+	int choice,flag=1,flag_hasloadedmenu,flag_hasloadedcat,flag_hasloadedinvoicelist;
 	initscr();		//init ncurses
 	
 	//Init stuff from memory
 	flag_hasloadedmenu=read_menulist();
 	flag_hasloadedcat=read_cat_det();
+	flag_hasloadedinvoicelist = read_invoice_list();
 	
 	//cbreak();
 	while(flag){
@@ -388,15 +390,19 @@ int main(){
 			case '5':
 				// Make invoice
 				write_invoice();
+				flag_hasloadedinvoicelist = 1;
 			break;
 			case '6':
 				// Load invoice
-				read_invoice();
+				flag_hasloadedinvoicelist = read_invoice();
 				print_invoice();
 			break;
 			case '7':
 				// Make report
-				report();
+				if(flag_hasloadedinvoicelist)
+					report();
+				else
+					printw("\nNo invoices generated. Please generate one.");
 			break;
 			case '0':
 				// Exit

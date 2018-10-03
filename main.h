@@ -2,11 +2,12 @@
 #define MOTD "Have a nice day!"
 #define MAX_ITEM_LIST 150
 
+//Utility functions : Do some off-topic but required operations
+
 int exists(const char *fname);
 int check_substreq(char *,char *,int,int);
 
-//Functions - Functionality has been finalized
-//TODO - ADD safeguards for off-limit inputs
+//Functions - Topic related functions
 
 void print_cat_det();
 int read_cat_det();
@@ -20,10 +21,10 @@ int input_item_number();
 int read_invoice_list();
 
 int write_invoice();
-void read_invoice();
+int read_invoice();
 void print_invoice();
 
-//void read_invoice_list();
+
 
 int report();
 
