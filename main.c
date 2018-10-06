@@ -14,6 +14,15 @@ Start
 	7. Generate report
 	0. Exit
 
+Other non standard functions used:
+	printw(): ncurses function used to print to screen. Identical to printf()
+	refresh(): ncurses function, just flushes all pending printw onto the screen
+	scanw(): ncurses function used to take input. Identical to scanf()
+	getstr(): ncurses function that returns a string that has been taken as input, including spaces
+	getch(): ncurses function that takes a single character input
+
+	
+	
 */
 
 #include<stdio.h>
