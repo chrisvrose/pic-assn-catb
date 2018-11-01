@@ -332,7 +332,7 @@ int report(){
 	if(num_items != 0){
 		total_tax = total_sprice*cat_details.taxp/100;
 		total_profit = total_sprice+total_tax-total_pcost;
-		printw("\nTotalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f", num_items, total_tax , total_pcost , total_sprice );
+		printw("\nTotalling - \nNumber of items:%d \nTotal tax:%f \nTotal Production Costs:%f \nTotal Sales:%f \nTotal Profit", num_items, total_tax , total_pcost , total_sprice ,total_profit);
 	}
 	else{
 		printw("\nNo items. Try a wider range, maybe.");
